@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: nerfstudio
+Version: 0.1.12
+Summary: All-in-one repository for state-of-the-art NeRFs
+License: Apache 2.0
+Project-URL: Documentation, https://docs.nerf.studio
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python
+Requires-Python: >=3.7.3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: appdirs>=1.4
+Requires-Dist: av==9.2.0
+Requires-Dist: tyro>=0.3.31
+Requires-Dist: gdown==4.6.0
+Requires-Dist: ninja==1.10.2.3
+Requires-Dist: functorch==0.2.1
+Requires-Dist: h5py>=2.9.0
+Requires-Dist: imageio==2.21.1
+Requires-Dist: ipywidgets>=7.6
+Requires-Dist: jupyterlab==3.3.4
+Requires-Dist: matplotlib==3.5.3
+Requires-Dist: mediapy==1.1.0
+Requires-Dist: msgpack==1.0.4
+Requires-Dist: msgpack_numpy==0.4.8
+Requires-Dist: nerfacc==0.3.5
+Requires-Dist: open3d>=0.16.0
+Requires-Dist: opencv-python==4.6.0.66
+Requires-Dist: plotly==5.7.0
+Requires-Dist: protobuf==3.20.0
+Requires-Dist: pymeshlab==2022.2.post2
+Requires-Dist: pyngrok==5.1.0
+Requires-Dist: python-socketio==5.7.1
+Requires-Dist: requests
+Requires-Dist: rich==12.5.1
+Requires-Dist: scikit-image==0.19.3
+Requires-Dist: tensorboard==2.9.0
+Requires-Dist: torch==1.12.1
+Requires-Dist: torchmetrics[image]>=0.9.3
+Requires-Dist: torchtyping>=0.1.4
+Requires-Dist: torchvision>=0.13.0
+Requires-Dist: u-msgpack-python>=2.4.1
+Requires-Dist: wandb>=0.13.3
+Requires-Dist: xatlas
+Requires-Dist: trimesh
+Provides-Extra: dev
+Requires-Dist: black[jupyter]==22.3.0; extra == "dev"
+Requires-Dist: pylint==2.13.4; extra == "dev"
+Requires-Dist: pytest==7.1.2; extra == "dev"
+Requires-Dist: pytest-xdist==2.5.0; extra == "dev"
+Requires-Dist: typeguard>=2.13.3; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: furo==2022.09.29; extra == "docs"
+Requires-Dist: ipython==8.6.0; extra == "docs"
+Requires-Dist: readthedocs-sphinx-search==0.1.2; extra == "docs"
+Requires-Dist: myst-nb==0.16.0; extra == "docs"
+Requires-Dist: nbconvert==7.2.5; extra == "docs"
+Requires-Dist: nbformat==5.5.0; extra == "docs"
+Requires-Dist: sphinx==5.2.1; extra == "docs"
+Requires-Dist: sphinxemoji==0.2.0; extra == "docs"
+Requires-Dist: sphinx-argparse==0.3.1; extra == "docs"
+Requires-Dist: sphinx-copybutton==0.5.0; extra == "docs"
+Requires-Dist: sphinx-design==0.2.0; extra == "docs"
+Requires-Dist: sphinxext-opengraph==0.6.3; extra == "docs"

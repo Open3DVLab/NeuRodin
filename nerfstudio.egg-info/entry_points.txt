@@ -1,0 +1,12 @@
+[console_scripts]
+ns-bridge-server = nerfstudio.viewer.server.server:entrypoint
+ns-dev-test = scripts.github.run_actions:entrypoint
+ns-download-data = scripts.downloads.download_data:entrypoint
+ns-eval = scripts.eval:entrypoint
+ns-export = scripts.exporter:entrypoint
+ns-extract-mesh = scripts.extract_mesh:entrypoint
+ns-install-cli = scripts.completions.install:entrypoint
+ns-process-data = scripts.process_data:entrypoint
+ns-render = scripts.render:entrypoint
+ns-render-mesh = scripts.render_mesh:entrypoint
+ns-train = scripts.train:entrypoint

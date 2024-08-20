@@ -2,7 +2,7 @@
     <h1 align="center">NeuRodin: A Two-stage Framework for High-Fidelity Neural Surface Reconstruction</h1>
 
 
-[**Project Page**](https://open3dvlab.github.io/NeuRodin/) | [**Arxiv**](xx)
+[**Project Page**](https://open3dvlab.github.io/NeuRodin/) | [**Arxiv**](https://arxiv.org/abs/2408.10178)
 
 [Yifan Wang<sup>1</sup>](https://github.com/yyfz), [Di Huang<sup>1</sup>](https://dihuang.me/), [Weicai Ye<sup>1,2</sup>](https://ywcmaike.github.io/), [Guofeng Zhang<sup>2</sup>](http://www.cad.zju.edu.cn/home/gfzhang/) [Wanli Ouyang<sup>1</sup>](https://wlouyang.github.io/), [Tong He<sup>1</sup>](http://tonghe90.github.io/)
 

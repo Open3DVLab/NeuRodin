@@ -167,10 +167,10 @@ python zoo/extract_surface.py --conf <path-to-config> --resolution 2048
 If you find our work useful in your research, please consider citing:
 ```
 @article{wang2024neurodin,
-  title={NeuRodin: A Two-stage Framework for High-Fidelity Neural Surface Reconstruction.},
-  author={Yifan Wang and Di Huang and Weicai Ye and Guofeng Zhang and Wanli Ouyang and Tong He},
-    booktitle={arxiv preprint}, 
-    year={2024}
+  title={NeuRodin: A Two-stage Framework for High-Fidelity Neural Surface Reconstruction},
+  author={Wang, Yifan and Huang, Di and Ye, Weicai and Zhang, Guofeng and Ouyang, Wanli and He, Tong},
+  journal={arXiv preprint arXiv:2408.10178},
+  year={2024}
 }
 ```
 

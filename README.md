@@ -4,9 +4,9 @@
 
 [**Project Page**](https://open3dvlab.github.io/NeuRodin/) | [**Arxiv**](https://arxiv.org/abs/2408.10178)
 
-[Yifan Wang<sup>1</sup>](https://github.com/yyfz), [Di Huang<sup>1</sup>](https://dihuang.me/), [Weicai Ye<sup>1,2</sup>](https://ywcmaike.github.io/), [Guofeng Zhang<sup>2</sup>](http://www.cad.zju.edu.cn/home/gfzhang/) [Wanli Ouyang<sup>1</sup>](https://wlouyang.github.io/), [Tong He<sup>1</sup>](http://tonghe90.github.io/)
+[Yifan Wang<sup>1,2</sup>](https://github.com/yyfz), [Di Huang<sup>1</sup>](https://dihuang.me/), [Weicai Ye<sup>1,3</sup>](https://ywcmaike.github.io/), [Guofeng Zhang<sup>3</sup>](http://www.cad.zju.edu.cn/home/gfzhang/) [Wanli Ouyang<sup>1</sup>](https://wlouyang.github.io/), [Tong He<sup>1</sup>](http://tonghe90.github.io/)
 
-**<sup>1</sup>Shanghai AI Laboratory** &nbsp;&nbsp; **<sup>2</sup>State Key Lab of CAD&CG, Zhejiang University**
+**<sup>1</sup>Shanghai AI Laboratory** &nbsp;&nbsp; **<sup>2</sup>Shanghai Jiao Tong University** &nbsp;&nbsp; **<sup>3</sup>State Key Lab of CAD&CG, Zhejiang University**
 </div>
 
 <p align="center">

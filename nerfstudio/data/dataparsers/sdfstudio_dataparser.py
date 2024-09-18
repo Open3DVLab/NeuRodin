@@ -214,13 +214,7 @@ class SDFStudioDataParserConfig(DataParserConfig):
     """automatically orient the scene such that the up direction is the same as the viewer's up direction"""
     load_dtu_highres: bool = False
     """load high resolution images from DTU dataset, should only be used for the preprocessed DTU dataset"""
-    include_instance_mask: bool = False
-    enable_partial_frames: bool = False    #### for debug
-    partial_start: int = 0
-    partial_end: int = 40
     frames_interval: int = 1
-    partial_frames_scale: float = 0.0
-    include_test_normal: bool = False
 
     ablation: bool = False
 
@@ -311,60 +305,22 @@ class SDFStudio(DataParser):
                 sensor_depth = np.load(self.config.data / frame["sensor_depth_path"])
                 sensor_depth_images.append(torch.from_numpy(sensor_depth).float())
 
-            if self.config.include_test_normal:
-                # normal = np.load(f'plots/pure-neus-0e75f3c4d9-mt5x6-mixeik-smooth-pure-neus-2024-03-25_110347/normal/{i}.npy')         ###### 21d970d8de multi-tirplane
-                # normal = np.load(f'plots/pure-neus-21d970d8de-hash-eik0.0-nonormal-pure-neus-2024-03-22_173542/normal/{i}.npy')             ######### self
-                # normal = np.random.randn(*normal.shape)          ######## random
-                # normal = np.load(f'plots/pure-neus-0050-mt5x6-128b-mixeik-pure-neus-2024-03-24_010127/normal/{i}.npy')             ######### 0050 multi-triplane
-                # normal = np.load(f'plots/pure-neus-0e75f3c4d9-mt5x6-mixeik-smooth-pure-neus-2024-03-25_110347/normal/{i}.npy')             ######### 0e75f3c4d9 multi-triplane
-                normal = - np.load(self.config.data / frame["mono_normal_path"])
-                # normal = cv2.resize(normal.transpose(1, 2, 0), (876, 584)).transpose(2, 0, 1)         ##########
-
-                # transform normal to world coordinate system
-                normal = torch.from_numpy(normal).float()
-
-                rot = camtoworld[:3, :3]
-
-                normal_map = normal.reshape(3, -1)
-                normal_map = torch.nn.functional.normalize(normal_map, p=2, dim=0)
-
-                normal_map = rot @ normal_map
-                normal_map = normal_map.permute(1, 0).reshape(*normal.shape[1:], 3)
-                normal_images.append(normal_map)
-
-                # normal_images.append(normal)
-
-                # depth = np.load(f'plots/pure-neus-0e75f3c4d9-mt5x6-mixeik-smooth-pure-neus-2024-03-25_110347/depth/{i}.npy')[..., 0]       ###### 21d970d8de multi-tirplane
-                # depth = np.load(f'plots/pure-neus-21d970d8de-hash-eik0.0-nonormal-pure-neus-2024-03-22_173542/depth/{i}.npy')[..., 0]           ######### self depth
-                # depth = np.random.rand(*normal_map.shape[:-1])          ######## random
-                # depth = np.load(f'plots/pure-neus-0050-mt5x6-128b-mixeik-pure-neus-2024-03-24_010127/depth/{i}.npy')[..., 0]           ######### 0050 multi-triplane
-                # depth = np.load(f'plots/pure-neus-0e75f3c4d9-mt5x6-mixeik-smooth-pure-neus-2024-03-25_110347/depth/{i}.npy')[..., 0]           ######### 0050 multi-triplane
-                depth = np.load(self.config.data / frame["mono_depth_path"])
-                # depth = cv2.resize(depth, (876, 584))
-
-                depth_images.append(torch.from_numpy(depth).float())
-                # depth_images.append(torch.zeros(normal.shape[:2]).float())
-
             if self.config.include_foreground_mask:
-                # assert meta["has_foreground_mask"]
-                # # load foreground mask
-                # if self.config.load_dtu_highres:
-                #     # filenames format is 000.png
-                #     foreground_mask = np.array(
-                #         Image.open(
-                #             self.config.data / "mask" / frame["foreground_mask"].replace("_foreground_mask", "")[-7:]
-                #         ),
-                #         dtype="uint8",
-                #     )
-                # else:
-                #     # filenames format is 000000_foreground_mask.png
-                #     foreground_mask = np.array(Image.open(self.config.data / frame["foreground_mask"]), dtype="uint8")
-                # foreground_mask = foreground_mask[..., :1]
-                # foreground_mask_images.append(torch.from_numpy(foreground_mask).float() / 255.0)
-                ins_mask_load = np.array(Image.open(f'/mnt/data/oss_beijing/wangyifan/objectsdf++/scannet/scan1/segs/{frame["rgb_path"].replace("rgb", "segs")}'))
-                ins_mask = np.zeros_like(ins_mask_load)
-                ins_mask[ins_mask_load==5] = 1
-                foreground_mask_images.append(ins_mask[..., None])
+                assert meta["has_foreground_mask"]
+                # load foreground mask
+                if self.config.load_dtu_highres:
+                    # filenames format is 000.png
+                    foreground_mask = np.array(
+                        Image.open(
+                            self.config.data / "mask" / frame["foreground_mask"].replace("_foreground_mask", "")[-7:]
+                        ),
+                        dtype="uint8",
+                    )
+                else:
+                    # filenames format is 000000_foreground_mask.png
+                    foreground_mask = np.array(Image.open(self.config.data / frame["foreground_mask"]), dtype="uint8")
+                foreground_mask = foreground_mask[..., :1]
+                foreground_mask_images.append(torch.from_numpy(foreground_mask).float() / 255.0)
 
             if self.config.include_sfm_points:
                 assert meta["has_sparse_sfm_points"]
@@ -372,11 +328,6 @@ class SDFStudio(DataParser):
                 sfm_points_view = np.loadtxt(self.config.data / frame["sfm_sparse_points_view"])
                 sfm_points.append(torch.from_numpy(sfm_points_view).float())
 
-            if self.config.include_instance_mask:
-                ins_mask_load = np.array(Image.open(f'/mnt/data/oss_beijing/wangyifan/objectsdf++/scannet/scan1/segs/{frame["rgb_path"].replace("rgb", "segs")}'))
-                ins_mask = np.zeros_like(ins_mask_load)
-                ins_mask[ins_mask_load==2] = 1
-                ins_mask_images.append(ins_mask)
 
             # append data
             image_filenames.append(image_filename)
@@ -437,19 +388,6 @@ class SDFStudio(DataParser):
             collider_type=meta_scene_box["collider_type"],
         )
 
-        if self.config.enable_partial_frames:
-            indices = indices[self.config.partial_start:self.config.partial_end]                ##########
-            print(f'#### ATTENTION ####: Test cropped frames from [{self.config.partial_start}, {self.config.partial_end}]!')           ########
-            if self.config.partial_frames_scale > 0.0:
-                partial_cam_pos_list = camera_to_worlds[indices, :3, 3]
-                partial_cam_center = (partial_cam_pos_list.max(dim=0)[0] + partial_cam_pos_list.min(dim=0)[0]) / 2
-                camera_to_worlds[indices, :3, 3] -= partial_cam_center
-                partial_scale_factor = 1.0
-                partial_scale_factor /= float(torch.norm(camera_to_worlds[indices, :3, 3], dim=1).max()*1.1)
-                partial_scale_factor *= self.config.partial_frames_scale
-                camera_to_worlds[indices, :3, 3] *= partial_scale_factor
-                camera_to_worlds[indices, :3, 3] += torch.tensor([0.2, -0.2, 0.2])[None, :]
-
         height, width = meta["height"], meta["width"]
         cameras = Cameras(
             fx=fx[indices],
@@ -465,7 +403,7 @@ class SDFStudio(DataParser):
         # TODO supports downsample
         # cameras.rescale_output_resolution(scaling_factor=1.0 / self.config.downscale_factor)
 
-        if self.config.include_mono_prior or self.config.include_test_normal:
+        if self.config.include_mono_prior:
             additional_inputs_dict = {
                 "cues": {
                     "func": get_depths_and_normals,
@@ -490,11 +428,6 @@ class SDFStudio(DataParser):
                 "kwargs": {"fg_masks": filter_list(foreground_mask_images, indices)},
             }
 
-        if self.config.include_instance_mask:
-            additional_inputs_dict["foreground_masks"] = {
-                "func": get_foreground_masks,
-                "kwargs": {"ins_masks": filter_list(ins_mask_images, indices)},
-            }
 
         if self.config.include_sfm_points:
             additional_inputs_dict["sfm_points"] = {

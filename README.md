@@ -1,6 +1,7 @@
 <div align="center">
     <h1 align="center">NeuRodin: A Two-stage Framework for High-Fidelity Neural Surface Reconstruction</h1>
 
+<h3 align="center">NeurIPS 2024</h3>
 
 [**Project Page**](https://open3dvlab.github.io/NeuRodin/) | [**Arxiv**](https://arxiv.org/abs/2408.10178)
 
